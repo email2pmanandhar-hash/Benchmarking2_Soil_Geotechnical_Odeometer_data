@@ -6,7 +6,7 @@ This repository provides data and Jupyter notebooks for predicting missing soil 
 
 | Study | Purpose | Data partition |
 | --- | --- | --- |
-| A | Reproduce the Benchmark 2 evaluation using its prescribed partition. | 2,766 local records, 110 verification records, and 20 blind-test records. Use five-fold cross-validation within the local development data. |
+| A | Reproduce the Benchmark 2 evaluation using its prescribed partition. | 2,766 local records (2718 matched out of 2766 records with Benchmarking 1 data) 110 verification records (74 overlapped with local records and hence removed and only 36 records are used), and 20 blind-test records. Use five-fold cross-validation within the local development data. |
 | B | Evaluate prediction at boreholes withheld from development using a larger, approximately 80:20 borehole-disjoint split. | 2,219 development records from 184 boreholes and 555 test records from 52 different boreholes. |
 | C | Evaluate at the designated benchmark test boreholes after excluding those boreholes from development. | 2,668 development records from 228 boreholes and 106 test records from 8 different boreholes. The Study C input data are provided separately under `Data/`. |
 
