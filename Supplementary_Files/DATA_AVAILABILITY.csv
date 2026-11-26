@@ -1,0 +1,23 @@
+study,record,status,detail
+A,Development/test/fold identifiers,provided,Record and borehole allocations are supplied; Study A uses task-specific mapped evaluation IDs.
+A,Primary and degree-one per-seed metrics/settings/CV scores,provided,Original per-record learner prediction files and representative fitted model binaries are not supplied.
+A,Original raw input files,not supplied,Original input identity is recorded where available. Raw data access remains separate from this package.
+A,Complete dependency lock,not supplied,Available environment/configuration records are preserved without treating them as a complete lock.
+A,"SHAP arrays, background/evaluation IDs and additivity records",provided,"Fourteen A, ten B and ten C cases. Referenced model hashes are identifiers; model binaries are absent."
+B,Development/test/fold identifiers,provided,Record and borehole allocations are supplied; Study A uses task-specific mapped evaluation IDs.
+B,Primary and degree-one per-seed metrics/settings/CV scores,provided,Original per-record learner prediction files and representative fitted model binaries are not supplied.
+B,Original raw input files,not supplied,Original input identity is recorded where available. Raw data access remains separate from this package.
+B,Complete dependency lock,not supplied,Available environment/configuration records are preserved without treating them as a complete lock.
+B,"SHAP arrays, background/evaluation IDs and additivity records",provided,"Fourteen A, ten B and ten C cases. Referenced model hashes are identifiers; model binaries are absent."
+C,Development/test/fold identifiers,provided,Record and borehole allocations are supplied; Study A uses task-specific mapped evaluation IDs.
+C,Primary and degree-one per-seed metrics/settings/CV scores,provided,Original per-record learner prediction files and representative fitted model binaries are not supplied.
+C,Original raw input files,not supplied,Original input identity is recorded where available. Raw data access remains separate from this package.
+C,Complete dependency lock,not supplied,Available environment/configuration records are preserved without treating them as a complete lock.
+C,"SHAP arrays, background/evaluation IDs and additivity records",provided,"Fourteen A, ten B and ten C cases. Referenced model hashes are identifiers; model binaries are absent."
+A,Final fitted variogram diagnostics,provided,760 original JSONs and a flattened parameter table are supplied; no comparator per-record prediction files were provided.
+A,Original primary run/execution/selection manifests,provided,Underlying locked-setting JSON payloads and indexed prediction files remain absent.
+B,Empirical comparator predictions and final fitted variograms,provided,760 CSV prediction files; 421800 observed/predicted record-seed rows; final fitted parameter table supplied.
+B,Exact empirical execution manifests,provided,"Original tuning_manifest.json, source_compatibility.json and locked_comparator_settings.json are supplied in S2_StudyB/provenance/original/. These document the empirical tuning configuration, recorded source-compatibility checks and selected OK/RK pipelines."
+C,"Empirical comparator predictions, metadata and final variograms",provided,760 prediction CSVs and 760 metadata JSONs; 80560 observed/predicted record-seed rows; fitted parameter table supplied.
+C,Original primary run/execution manifests,provided,"Original run_manifest.json and execution_manifest.json are supplied in S3_StudyC/provenance/original/. These document the retained primary-run configuration, recorded source identities and execution status."
+C,Exact live-kernel empirical source identity,qualified,The original manifest hashes an embedded source string; notebook definitions differ in revision/default paths. Both versions are supplied; scientific functions agree.

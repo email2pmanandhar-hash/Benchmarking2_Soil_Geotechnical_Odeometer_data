@@ -1,0 +1,9 @@
+component,submit_path,contents
+Consolidated guide,Supplementary_Guide_Studies_A_B_C.pdf,"Study allocation, file locations, retained analysis stages and available evidence."
+Study A,S1_StudyA/,"Results, selected settings, final CV scores, mapped IDs, SHAP records, original code/manifests and final variogram diagnostics."
+Study B,S2_StudyB/,"Results, selected settings, final CV scores, split IDs, SHAP records, code/manifests and 760 empirical comparator prediction files."
+Study C,S3_StudyC/,"Retained semivariogram results, selected settings, final CV scores, split IDs, SHAP records, source records and 760 comparator predictions with metadata."
+Across studies,Cross_study/,Thirty-four-case SHAP sampling/additivity index and unrounded forty-two-task ensemble ranking calculation.
+Integrity and source identity,FILE_INDEX.csv; provenance/,"Exact submission file list, file hashes, original-to-submission record mapping and source archive identity."
+Verification,verification/,"Integrity checker, numerical-record checker and the resulting verification summary."
+Availability,DATA_AVAILABILITY.csv,"Study-specific availability of original inputs, predictions, variogram parameters and model/execution records."

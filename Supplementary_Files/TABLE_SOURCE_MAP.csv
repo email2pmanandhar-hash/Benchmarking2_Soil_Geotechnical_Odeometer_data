@@ -1,0 +1,30 @@
+study,manuscript_content,file
+A,"Primary performance, XYZ constituents and calibration",S1_StudyA/results/summary_mean_sd.csv
+A,Spatial comparisons,S1_StudyA/results/spatial_improvements.csv
+A,Table A.9 learner settings,S1_StudyA/results/selected_learner_settings.csv
+A,Table A.12 comparator settings,S1_StudyA/results/selected_OK_RK_settings.csv
+A,Table A.13 numerical variogram parameters,S1_StudyA/results/fitted_variogram_parameters.csv
+A,Tables A.14-A.16 conditional bootstrap,S1_StudyA/results/borehole_bootstrap.csv
+A,Table A.19 polynomial ablation,S1_StudyA/results/polynomial_ablation_paired.csv
+A,Table A.20 residual dependence,S1_StudyA/results/learner_residual_correlations.csv
+A,Equation 18 fitted-tree diagnostic,S1_StudyA/results/MT1_tree_importance.csv
+B,"Primary performance, XYZ constituents and calibration",S2_StudyB/results/summary_mean_sd.csv
+B,Spatial comparisons,S2_StudyB/results/spatial_improvements.csv
+B,Table A.10 learner settings,S2_StudyB/results/selected_learner_settings.csv
+B,Table A.12 comparator settings,S2_StudyB/results/selected_OK_RK_settings.csv
+B,Table A.13 numerical variogram parameters,S2_StudyB/results/fitted_variogram_parameters.csv
+B,Tables A.14-A.16 conditional bootstrap,S2_StudyB/results/borehole_bootstrap.csv
+B,Table A.19 polynomial ablation,S2_StudyB/results/polynomial_ablation_paired.csv
+B,Table A.20 residual dependence,S2_StudyB/results/learner_residual_correlations.csv
+B,Equation 18 fitted-tree diagnostic,S2_StudyB/results/MT1_tree_importance.csv
+C,"Primary performance, XYZ constituents and calibration",S3_StudyC/results/summary_mean_sd.csv
+C,Spatial comparisons,S3_StudyC/results/spatial_improvements.csv
+C,Table A.11 learner settings,S3_StudyC/results/selected_learner_settings.csv
+C,Table A.12 comparator settings,S3_StudyC/results/selected_OK_RK_settings.csv
+C,Table A.13 numerical variogram parameters,S3_StudyC/results/fitted_variogram_parameters.csv
+C,Tables A.14-A.16 conditional bootstrap,S3_StudyC/results/borehole_bootstrap.csv
+C,Table A.19 polynomial ablation,S3_StudyC/results/polynomial_ablation_paired.csv
+C,Table A.20 residual dependence,S3_StudyC/results/learner_residual_correlations.csv
+C,Equation 18 fitted-tree diagnostic,S3_StudyC/results/MT1_tree_importance.csv
+ABC,Table A.22 and SHAP sampling,Cross_study/SHAP_additivity_and_sampling.csv
+ABC,Table 6 unrounded learner rankings,Cross_study/ensemble_rank_calculation.csv
