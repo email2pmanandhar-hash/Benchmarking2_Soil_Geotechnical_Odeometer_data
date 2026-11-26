@@ -1,53 +1,135 @@
-# GEOAI Benchmark 2: soil mechanical parameter prediction
+# Execution scripts for Studies A, B and C
 
-This repository provides data and Jupyter notebooks for predicting missing soil mechanical parameters in GEOAI Benchmark Problem 2. The material is organized in `Data/`, `Scripts/`, and this `README.md`. The required inputs are supplied in separate folders under `Data/`; use the files designated for the study being reproduced. The `Scripts/` folder contains the Study A and Study B analysis notebooks shown below. Study C uses its separately supplied data and its borehole-exclusion evaluation protocol.
+This README accompanies `Execution_Scripts_Studies_A_B_C.zip`. Place it in the extracted `Execution_Scripts_Studies_A_B_C/` folder.
 
-## Studies and evaluation sets
+The archive contains 11 original Python scripts and Jupyter notebooks, copied unchanged from the consolidated supplementary package. It contains no input datasets, results, fitted models, dependency lock or execution-configuration JSON files. The companion `Journal_Supplementary_Files_Studies_A_B_C_Updated.zip` supplies retained configurations, identifiers, results and available provenance records.
 
-| Study | Purpose | Data partition |
+## 1. Files and roles
+
+Paths below are relative to the extracted package root.
+
+| Study | File | Role |
 | --- | --- | --- |
-| A | Reproduce the Benchmark 2 evaluation using its prescribed partition. | 2,766 local records (2718 matched out of 2766 records with Benchmarking 1 data) 110 verification records (74 overlapped with local records and hence removed and only 36 records are used), and 20 blind-test records. Use five-fold cross-validation within the local development data. |
-| B | Evaluate prediction at boreholes withheld from development using a larger, approximately 80:20 borehole-disjoint split. | 2,219 development records from 184 boreholes and 555 test records from 52 different boreholes. |
-| C | Evaluate at the designated benchmark test boreholes after excluding those boreholes from development. | 2,668 development records from 228 boreholes and 106 test records from 8 different boreholes. The Study C input data are provided separately under `Data/`. |
+| A | `S1_StudyA/code/StudyA_retuned_fast_resume.py` | Primary learner pipeline, empirical OK/RK, ablation, diagnostics and SHAP. |
+| A | `S1_StudyA/code/original/StudyA_executed_notebook.ipynb` | Supplied notebook containing the study configuration and execution calls. |
+| B | `S2_StudyB/code/StudyC_fast_resume.py` | Shared primary engine, configured for Study B inputs and its 555-record test population. |
+| B | `S2_StudyB/code/StudyB_OK_RK_tuning_Table7_compatible.py` | Separate empirical OK/RK tuning using saved Study B primary outputs. |
+| B | `S2_StudyB/code/original/StudyB_executed_notebook.ipynb` | Study B primary configuration and execution calls. |
+| B | `S2_StudyB/code/original/StudyB_empirical_OK_RK_reference.ipynb` | Supplied empirical comparator reference notebook. Use the accompanying Python module for the retained source identity. |
+| C | `S3_StudyC/code/StudyC_fast_resume.py` | Primary engine for the 106-record Study C test population. |
+| C | `S3_StudyC/code/StudyC_empirical_source_as_hashed.py` | Empirical OK/RK source whose bytes match the retained tuning manifest's recorded source hash. |
+| C | `S3_StudyC/code/StudyC_empirical_definitions_from_notebook.py` | Separately preserved notebook definitions, with revision/default-path differences. |
+| C | `S3_StudyC/code/original/StudyC_primary_supplied.ipynb` | Supplied Study C primary configuration and execution calls. |
+| C | `S3_StudyC/code/original/StudyC_empirical_tuning_supplied.ipynb` | Supplied empirical tuning notebook, retaining historical example paths and configuration cells. |
 
-The studies use the same offshore reclamation dataset but answer different evaluation questions. Report each study's results with its own partition; do not combine records across study folders or treat the Study B and Study C test sets as interchangeable. These are within-site evaluations, including the borehole-disjoint evaluations in Studies B and C.
+Study B's `StudyC` filenames and some inherited labels identify the shared engine. Its input files, configuration and split identifiers determine that the run is Study B.
 
-## Data and prediction task
+## 2. Environment and inputs
 
-Benchmark 2 contains index and laboratory soil measurements identified by sample and borehole. The available variables include degree of saturation (`S_r`), total unit weight (`gamma_t`), void ratio (`e`), liquid limit (`LL`), plastic limit (`PL`), and water content (`w`), alongside mechanical parameters: undrained shear strength (`S_u`), secant stiffness (`E_50`), preconsolidation pressure (`P_c`), compression index (`C_c`), and coefficient of consolidation (`C_v`). Spatial analyses use matched location and depth descriptors (`x`, `y`, and depth) where available. Check the column names and units in the supplied data before running a notebook.
+Use Python 3.12 with NumPy, pandas, SciPy, scikit-learn, XGBoost, SHAP, joblib, threadpoolctl, Matplotlib and openpyxl. Jupyter is needed for notebooks. Consult the full supplement's environment records for recorded versions. This dependency list is not a complete environment lock.
 
-The prediction scenarios represent different sets of laboratory results available at inference time:
+| Study | Required source datasets | Retained evaluation population |
+| --- | --- | --- |
+| A | `BM2_Local_BID_11_minus_Table1_XYZ_merged.csv`; `BM2_Local_validation_without_74_matched_records.csv`; `BM2_Table_1_md_XYZ_merged_rows.csv` | Five records per applicable task; four boreholes for MT1 and five for MT2 to MT4. Development and test share boreholes. |
+| B | `BM2_Train_borehole_grouped_80.csv`; `BM2_Test_borehole_grouped_20.csv` | 555 test records from 52 boreholes, disjoint from development boreholes. |
+| C | `BM2_Data_All_without_106_records.csv`; `BM2_Data_All_with_106_records.csv` | 106 test records from eight boreholes, disjoint from development boreholes. |
 
-| Missing type | Available mechanical measurements |
+Provide the original datasets with the expected columns and identifiers. Use absolute paths when relocating inputs and outputs. For empirical companions, use `input_overrides` when necessary to point to identical moved inputs; retain their original contents and checksums.
+
+Run each study from its own `code/` directory. Notebooks are stored one directory below it in `original/`; set the kernel working directory to the corresponding `code/` directory before executing import cells, or add that directory to the Python import path. A fresh kernel avoids carrying another study's `CONFIG` into notebooks that only define it when absent.
+
+## 3. Retained configuration
+
+Use the recorded configuration rather than class defaults or explanatory notebook prose. All studies retain 40 fitting seeds, 2026 to 2065, tuning seed 1729 and five grouped development folds.
+
+| Stage | Settings requiring particular attention |
 | --- | --- |
-| 1 | None of the five target mechanical parameters |
-| 2 | `S_u` |
-| 3 | `S_u` and `E_50` |
-| 4 | `P_c`, `C_c`, and `C_v` |
+| Study A | `verification_role="pooled_grouped_cv"`, `exclude_test_boreholes=False`, `search_iterations=18`, `boundary_candidates=2`, `geo_candidates=20`, `geo_inner_folds=5`. The 18 initial learner candidates plus two probes give 20 candidates. |
+| Studies B/C primary | `search_iterations=20`, `cv_folds=5`, `runs=40`; set the correct train/test files and `expected_test_records=555` for B or `106` for C. |
+| Study B empirical OK/RK | 20 candidates, five folds, neighbours `(8,16,32,64,128)`, Ridge penalties `(0.01,0.1,1,10,100)` and lag counts `(12,20)`. |
+| Study C empirical OK/RK | 20 candidates, five folds, neighbours `(8,16,32,64,128,256)`, Ridge penalties `(0.01,0.1,1,10,100,1000)` and lag counts `(12,20)`. The expanded neighbour/Ridge domain must be passed explicitly. |
 
-Targets already observed in a given scenario are inputs where appropriate; predictions concern the remaining missing parameters. Spatial comparisons consider no spatial descriptors, horizontal coordinates (`XY`), depth (`Z`), and combined coordinates and depth (`XYZ`).
+The retained Study C empirical implementation uses variance-normalized semivariogram-form kriging, diagonal jitter `1e-10`, at most 1,000 function evaluations per variogram fit and no exhaustion retries. Numerical jitter is distinct from the fitted nugget.
 
-## Scripts
+The primary B/C engines preserve an earlier heuristic comparator stage. For the retained comparisons, use the separate empirical tuning outputs to replace those comparator results while retaining the primary learner results. Notebook displays and historical table names do not define the final manuscript tables.
 
-The following filenames are shown in the repository's `Scripts/` folder:
+## 4. Execution order
 
-| Notebook | Study | Role |
-| --- | --- | --- |
-| `StudyA_40runs_fixed_dataset_seeded_ensemble_OK_RK.ipynb` | A | Fixed-dataset, seeded ensemble analysis across repeated runs. |
-| `StudyA_40runs_reproducible_tables_mapped_test_rows_revised.ipynb` | A | Repeated-run tables and test-row mapping. |
-| `StudyA_40runs_with_spatial_comparators_MultipleRuns.ipynb` | A | Repeated-run comparisons involving spatial predictors. |
-| `StudyB_40runs_fixed_dataset_seeded_ensemble_OK_RK.ipynb` | B | Fixed-dataset, seeded ensemble analysis across repeated runs. |
-| `StudyB_40runs_reproducible_tables_mapped_test_rows_revised.ipynb` | B | Repeated-run tables and test-row mapping. |
-| `StudyB_40run_with_spatial_comparators.ipynb` | B | Comparisons involving spatial predictors. |
+### Study A
 
-Study B notebooks belong with the Study B data partition. Study C data belong with the Study C partition; no Study C notebook is visible in the supplied `Scripts/` screenshot. If Study C scripts are supplied separately, run those scripts against the Study C data and preserve the exclusion of all test boreholes from model development.
+The Study A script includes empirical OK/RK; no separate comparator companion is needed. Obtain `S1_StudyA/provenance/executed_configuration.json` from the full supplement and review its input/output paths. From `S1_StudyA/code/`, validate and then run:
 
-## Running the notebooks
+```bash
+python StudyA_retuned_fast_resume.py --config /path/to/executed_configuration.json --validate-only
+python StudyA_retuned_fast_resume.py --config /path/to/executed_configuration.json --workers 4 --stage all
+```
 
-1. Download or clone the repository and keep the `Data/` and `Scripts/` directories together.
-2. Open the notebook corresponding to the intended study and set its input paths to the matching files under `Data/`.
-3. Install the Python packages imported by that notebook in a Jupyter-capable environment. Check notebook imports for the exact dependencies and versions.
-4. Run cells in order. Keep each study's train, verification, and test assignments fixed across repeated runs unless the notebook explicitly specifies a different protocol.
-5. Fit any preprocessing and model selection steps using development data only. Evaluate the held-out records only after the fitting procedure is complete.
+Alternatively, use the supplied Study A notebook with its recorded configuration cell. Some surrounding notebook prose describes earlier defaults; the retained configuration above governs the intended analysis.
 
-The notebook names indicate repeated 40-run analyses, but exact random seeds, model settings, output files, and execution requirements should be taken from the notebooks themselves. The README does not substitute one study's data for another's.
+### Studies B and C: primary pipelines
+
+Use the relevant primary notebook, or pass a JSON object containing the relevant primary manifest's `config` fields to the shared engine. For Study B, that record is `S2_StudyB/provenance/original/run_manifest.json` in the full supplement; for Study C, it is the corresponding S3 path. Pass the `config` object, not the entire manifest.
+
+From the study's own `code/` directory:
+
+```bash
+python StudyC_fast_resume.py --config /path/to/primary_config.json --validate-only
+python StudyC_fast_resume.py --config /path/to/primary_config.json --workers 4 --stage all
+```
+
+Keep B and C in separate output directories. The retained source directories were `StudyB_reconciled` and `StudyC_reconciled_25Nov` respectively. Select an appropriate worker count for available memory and CPUs.
+
+### Study B: empirical comparators
+
+After primary outputs are available, run the separate empirical companion. It can run in a fresh process; it does not require the primary notebook's live kernel.
+
+```bash
+python StudyB_OK_RK_tuning_Table7_compatible.py --study-b-output /path/to/StudyB_reconciled --output-dir /path/to/StudyB_empirical_rerun --validate-only
+python StudyB_OK_RK_tuning_Table7_compatible.py --study-b-output /path/to/StudyB_reconciled --output-dir /path/to/StudyB_empirical_rerun
+```
+
+The retained empirical output location was `StudyB_reconciled/OK_RK_tuning_Table7_compatible`. A rerun should use its own output location unless intentionally resuming the identical configuration.
+
+### Study C: empirical comparators
+
+Use `StudyC_empirical_source_as_hashed.py` with an explicit JSON configuration. For example, create `study_c_empirical_config.json` outside the source files:
+
+```json
+{
+  "study_c_output_dir": "/path/to/StudyC_reconciled_25Nov",
+  "output_dir": "/path/to/StudyC_empirical_rerun",
+  "n_candidates": 20,
+  "inner_folds": 5,
+  "tuning_seed": 1729,
+  "neighbor_counts": [8, 16, 32, 64, 128, 256],
+  "ridge_alphas": [0.01, 0.1, 1.0, 10.0, 100.0, 1000.0],
+  "lag_counts": [12, 20],
+  "max_variogram_evaluations": 1000,
+  "diagonal_jitter": 1e-10,
+  "final_seeds": null,
+  "resume": true
+}
+```
+
+Then run from `S3_StudyC/code/`:
+
+```bash
+python StudyC_empirical_source_as_hashed.py --config /path/to/study_c_empirical_config.json --validate-only
+python StudyC_empirical_source_as_hashed.py --config /path/to/study_c_empirical_config.json
+```
+
+`final_seeds=null` uses the original primary run's seeds. The retained empirical output directory was `OKRK_OP_25Nov`. The two preserved C source versions are not interchangeable provenance records: the embedded-source version matches the recorded hash, while exact historical live-kernel attribution remains qualified in the full supplement.
+
+## 5. Required primary outputs and interpretation
+
+The B/C empirical companions require the original primary output directory, including `run_manifest.json`, `run_metrics_from_predictions.csv`, `split_identifiers.csv`, `cv_fold_identifiers.csv`, `feature_manifest.csv`, `effective_test_counts.csv`, `prediction_record_index.csv` and the prediction files required by source validation. The scripts also need access to the original input data. The curated journal supplement is not a drop-in replacement for a complete primary run directory.
+
+Empirical tuning fits kriging and RK Ridge trends without refitting RF, GBR, XGB or their SHAP explanations. It writes separate selected-settings, candidate/fold-score, prediction, variogram and comparison records. Settings, identities and prediction outputs should be checked against the retained records before updating manuscript tables.
+
+The full supplement's canonical `results/summary_mean_sd.csv` files and table-source map identify the retained reported results. Repeated-run SDs concern the declared fixed-case fitting/computational variability. Studies B/C remain within-site evaluations; Study A remains exploratory.
+
+## 6. Verification and limits
+
+The code archive passed ZIP integrity, unchanged-source byte comparison, Python syntax and notebook JSON checks. These checks did not execute notebooks, fit models or establish a complete independent reproduction. The source notebooks retain original outputs, historical labels and configuration examples.
+
+Keep original code and provenance records unchanged when reproducing the analysis. Record any new configuration, environment and input/output identities separately. Complete independent reproduction requires the raw inputs, appropriate environment and required primary outputs or regeneration of those outputs. The full supplement's `DATA_AVAILABILITY.csv` documents remaining evidence gaps.
