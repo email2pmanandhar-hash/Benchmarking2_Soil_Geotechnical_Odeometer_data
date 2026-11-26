@@ -2,7 +2,7 @@
 
 This README accompanies `Scripts.zip`. Place it in the extracted `Scripts/` folder.
 
-The archive contains 11 original Python scripts and Jupyter notebooks, copied unchanged from the consolidated supplementary package. It contains no input datasets, results, fitted models, dependency lock or execution-configuration JSON files. The companion `Journal_Supplementary_Files_Studies_A_B_C_Updated.zip` supplies retained configurations, identifiers, results and available provenance records.
+The archive contains 11 original Python scripts and Jupyter notebooks, copied unchanged from the consolidated supplementary package. It contains no input datasets, results, fitted models, dependency lock or execution-configuration JSON files. The companion `Supplementary_Files`folder supplies retained configurations, identifiers, results and available provenance records.
 
 ## 1. Files and roles
 
