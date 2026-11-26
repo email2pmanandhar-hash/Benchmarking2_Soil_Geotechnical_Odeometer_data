@@ -1,6 +1,6 @@
 # Execution scripts for Studies A, B and C
 
-This README accompanies `Execution_Scripts_Studies_A_B_C.zip`. Place it in the extracted `Execution_Scripts_Studies_A_B_C/` folder.
+This README accompanies `Scripts.zip`. Place it in the extracted `Scripts/` folder.
 
 The archive contains 11 original Python scripts and Jupyter notebooks, copied unchanged from the consolidated supplementary package. It contains no input datasets, results, fitted models, dependency lock or execution-configuration JSON files. The companion `Journal_Supplementary_Files_Studies_A_B_C_Updated.zip` supplies retained configurations, identifiers, results and available provenance records.
 
