@@ -120,16 +120,3 @@ python StudyC_empirical_source_as_hashed.py --config /path/to/study_c_empirical_
 
 `final_seeds=null` uses the original primary run's seeds. The retained empirical output directory was `OKRK_OP_25Nov`. The two preserved C source versions are not interchangeable provenance records: the embedded-source version matches the recorded hash, while exact historical live-kernel attribution remains qualified in the full supplement.
 
-## 5. Required primary outputs and interpretation
-
-The B/C empirical companions require the original primary output directory, including `run_manifest.json`, `run_metrics_from_predictions.csv`, `split_identifiers.csv`, `cv_fold_identifiers.csv`, `feature_manifest.csv`, `effective_test_counts.csv`, `prediction_record_index.csv` and the prediction files required by source validation. The scripts also need access to the original input data. The curated journal supplement is not a drop-in replacement for a complete primary run directory.
-
-Empirical tuning fits kriging and RK Ridge trends without refitting RF, GBR, XGB or their SHAP explanations. It writes separate selected-settings, candidate/fold-score, prediction, variogram and comparison records. Settings, identities and prediction outputs should be checked against the retained records before updating manuscript tables.
-
-The full supplement's canonical `results/summary_mean_sd.csv` files and table-source map identify the retained reported results. Repeated-run SDs concern the declared fixed-case fitting/computational variability. Studies B/C remain within-site evaluations; Study A remains exploratory.
-
-## 6. Verification and limits
-
-The code archive passed ZIP integrity, unchanged-source byte comparison, Python syntax and notebook JSON checks. These checks did not execute notebooks, fit models or establish a complete independent reproduction. The source notebooks retain original outputs, historical labels and configuration examples.
-
-Keep original code and provenance records unchanged when reproducing the analysis. Record any new configuration, environment and input/output identities separately. Complete independent reproduction requires the raw inputs, appropriate environment and required primary outputs or regeneration of those outputs. The full supplement's `DATA_AVAILABILITY.csv` documents remaining evidence gaps.
